@@ -34,8 +34,7 @@ jobs:
         run: |
           commit=$(git rev-parse --short HEAD)
           echo "trying to find the image gcarrarom/actual-server:$commit"
-          docker pull gcarrarom/actual-server:$commit
-          if [[ $? != 0 ]]; then
+          if docker pull gcarrarom/actual-server:$commit ; then
             echo "Image not found! Authenticating to DockerHub"
             docker login -u gcarrarom -p ${{ secrets.DOCKERHUB_TOKEN }}
             echo "Building the new image"
